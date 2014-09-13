@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Get Meaining</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <script type="text/x-handlebars">
+    <h2>Get Meaning</h2>
+
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" id="index">
+    <div id="submitPara">
+    {{textarea value=paraContent cols="120" rows="6"}}      
+     <!-- <button id='submitButton' class='button'>Submit Paragraph</button> -->
+    </div>
+    <div id='dictryConsole'>
+      <div id='leftPanelMain'>
+        <div class='panelTitle'>Select Word by highlighting using mouse</div>
+        <div id='leftPanel'>{{paraContent}}</div>
+      </div>  
+      <div class='verticalDivider'></div>
+      <div id='rightPanelMain'>
+        <div class='panelTitle'>Meanings<div class='clearAll'>Clear All</div></div>
+        <div id='rightPanel'>
+        {{#each wordMeanings in wordMeaningsArr}}
+        <div class="meanDef">
+           <div class="meanhead blueGloss"><div class="meantitle">WORD: {{wordMeanings.word}}</div><div class="meanclose">X</div></div>
+            <div class="meanbody">
+              {{#each word in wordMeanings.definitions}}
+                <div class="meanAttr"><div class="meanH2">Meaning</div>{{word.meaning}}</div><br>
+                <div class="meanAttr"><div class="meanH2">Part of Speech</div>{{word.partOfSpeech}}</div><br><hr>
+              {{/each}}
+            </div>  
+          </div>    
+        {{/each}}        
+      </div>
+    </div>
+  </script>
+
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.7.0.js"></script>
+  <script src='js/libs/swagger.js' type='text/javascript'></script>  
+  <script src="js/app.js"></script>
+  <script type="text/javascript">
+  // initialize swagger, point to a resource listing  
+  $(function(){
+    window.swaggerUi  = new SwaggerApi({api_key: '32b32ada2213860b3580f0d638c03bbbe3b629bc84330695f', // Don't have a Wordnik API key? Get one at developer.wordnik.com
+    verbose: true,
+    success: function() { console.log("Ready to swagger."); }
+    });
+  });
+</script>
+  <!-- to activate the test runner, add the "?test" query string parameter -->
+  <script src="tests/runner.js"></script>
+</body>
+</html>
